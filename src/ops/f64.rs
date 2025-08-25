@@ -654,28 +654,16 @@ impl_op! {
     fn horizontal_add<f64> {
         for Avx2(a: __m256d) -> f64 {
             let a = _mm256_hadd_pd(a, a);
-            let b = _mm256_hadd_pd(a, a);
-
-            let first = _mm_cvtsd_f64(_mm256_extractf128_pd(b, 0));
-            let second = _mm_cvtsd_f64(_mm256_extractf128_pd(b, 1));
-
+            let first = _mm_cvtsd_f64(_mm256_extractf128_pd(a, 0));
+            let second = _mm_cvtsd_f64(_mm256_extractf128_pd(a, 1));
             first + second
         }
         for Sse41(a: __m128d) -> f64 {
-            let a = _mm_hadd_pd(a, a);
-
-            let first = _mm_cvtsd_f64(a);
-            let second = _mm_cvtsd_f64(_mm_shuffle_pd(a, a, 1));
-
-            first + second
+             _mm_cvtsd_f64(_mm_hadd_pd(a, a))
         }
         for Sse2(a: __m128d) -> f64 {
             let a = _mm_add_pd(a, _mm_shuffle_pd(a, a, 1));
-
-            let first = _mm_cvtsd_f64(a);
-            let second = _mm_cvtsd_f64(_mm_shuffle_pd(a, a, 1));
-
-            first + second
+            _mm_cvtsd_f64(a)
         }
         for Scalar(a: f64) -> f64 {
             a
