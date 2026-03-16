@@ -40,17 +40,5 @@ default-features = false
 features = ["plotters", "cargo_bench_support"]
 
 [[bench]]
-name = "numparse"
-harness = false
-
-[[bench]]
-name = "horizontal_add"
-harness = false
-
-[[bench]]
-name = "int_ops"
-harness = false
-
-[[bench]]
-name = "float_rounding"
+name = "bench_main"
 harness = false

@@ -1,4 +1,4 @@
-use criterion::{criterion_group, criterion_main, Criterion};
+use criterion::{criterion_group, Criterion};
 use simdeez::prelude::*;
 
 // --- i8 multiply ---
@@ -95,61 +95,62 @@ fn criterion_benchmark(c: &mut Criterion) {
     let i64_b: Vec<i64> = (0..size).map(|i| (i as i64).wrapping_mul(3)).collect();
     let mut i64_out = vec![0i64; size];
 
+    let mut g = c.benchmark_group("int_ops");
+
     // i8 mul
-    c.bench_function("i8 mul sse2", |b| {
+    g.bench_function("i8 mul sse2", |b| {
         b.iter(|| unsafe { bench_i8_mul_sse2(&i8_a, &i8_b, &mut i8_out) })
     });
-    c.bench_function("i8 mul sse41", |b| {
+    g.bench_function("i8 mul sse41", |b| {
         b.iter(|| unsafe { bench_i8_mul_sse41(&i8_a, &i8_b, &mut i8_out) })
     });
-    c.bench_function("i8 mul avx2", |b| {
+    g.bench_function("i8 mul avx2", |b| {
         b.iter(|| unsafe { bench_i8_mul_avx2(&i8_a, &i8_b, &mut i8_out) })
     });
 
     // i8 lt
-    c.bench_function("i8 lt sse2", |b| {
+    g.bench_function("i8 lt sse2", |b| {
         b.iter(|| unsafe { bench_i8_lt_sse2(&i8_a, &i8_b, &mut i8_out) })
     });
-    c.bench_function("i8 lt sse41", |b| {
+    g.bench_function("i8 lt sse41", |b| {
         b.iter(|| unsafe { bench_i8_lt_sse41(&i8_a, &i8_b, &mut i8_out) })
     });
-    c.bench_function("i8 lt avx2", |b| {
+    g.bench_function("i8 lt avx2", |b| {
         b.iter(|| unsafe { bench_i8_lt_avx2(&i8_a, &i8_b, &mut i8_out) })
     });
 
     // i16 lt
-    c.bench_function("i16 lt sse2", |b| {
+    g.bench_function("i16 lt sse2", |b| {
         b.iter(|| unsafe { bench_i16_lt_sse2(&i16_a, &i16_b, &mut i16_out) })
     });
-    c.bench_function("i16 lt sse41", |b| {
+    g.bench_function("i16 lt sse41", |b| {
         b.iter(|| unsafe { bench_i16_lt_sse41(&i16_a, &i16_b, &mut i16_out) })
     });
-    c.bench_function("i16 lt avx2", |b| {
+    g.bench_function("i16 lt avx2", |b| {
         b.iter(|| unsafe { bench_i16_lt_avx2(&i16_a, &i16_b, &mut i16_out) })
     });
 
     // i32 lt
-    c.bench_function("i32 lt sse2", |b| {
+    g.bench_function("i32 lt sse2", |b| {
         b.iter(|| unsafe { bench_i32_lt_sse2(&i32_a, &i32_b, &mut i32_out) })
     });
-    c.bench_function("i32 lt sse41", |b| {
+    g.bench_function("i32 lt sse41", |b| {
         b.iter(|| unsafe { bench_i32_lt_sse41(&i32_a, &i32_b, &mut i32_out) })
     });
-    c.bench_function("i32 lt avx2", |b| {
+    g.bench_function("i32 lt avx2", |b| {
         b.iter(|| unsafe { bench_i32_lt_avx2(&i32_a, &i32_b, &mut i32_out) })
     });
 
     // i64 lt
-    c.bench_function("i64 lt sse2", |b| {
+    g.bench_function("i64 lt sse2", |b| {
         b.iter(|| unsafe { bench_i64_lt_sse2(&i64_a, &i64_b, &mut i64_out) })
     });
-    c.bench_function("i64 lt sse41", |b| {
+    g.bench_function("i64 lt sse41", |b| {
         b.iter(|| unsafe { bench_i64_lt_sse41(&i64_a, &i64_b, &mut i64_out) })
     });
-    c.bench_function("i64 lt avx2", |b| {
+    g.bench_function("i64 lt avx2", |b| {
         b.iter(|| unsafe { bench_i64_lt_avx2(&i64_a, &i64_b, &mut i64_out) })
     });
 }
 
 criterion_group!(benches, criterion_benchmark);
-criterion_main!(benches);
