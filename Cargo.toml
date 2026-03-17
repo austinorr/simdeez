@@ -40,5 +40,5 @@ default-features = false
 features = ["plotters", "cargo_bench_support"]
 
 [[bench]]
-name = "numparse"
+name = "bench_main"
 harness = false

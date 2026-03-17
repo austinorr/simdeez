@@ -187,32 +187,32 @@ pub trait Simd: 'static + Sync + Send {
     /// Vector of i8s.  Corresponds to __m128i when used
     /// with the Sse impl, __m256i when used with Avx2, or a single i8
     /// when used with Scalar.
-    type Vi8: SimdInt8<Scalar = i8> + SimdBaseIo;
+    type Vi8: SimdInt8<Scalar = i8> + SimdBaseIo + SimdConsts<Scalar = i8>;
 
     /// Vector of i16s.  Corresponds to __m128i when used
     /// with the Sse impl, __m256i when used with Avx2, or a single i16
     /// when used with Scalar.
-    type Vi16: SimdInt16<Scalar = i16> + SimdBaseIo;
+    type Vi16: SimdInt16<Scalar = i16> + SimdBaseIo + SimdConsts<Scalar = i16>;
 
     /// Vector of i32s.  Corresponds to __m128i when used
     /// with the Sse impl, __m256i when used with Avx2, or a single i32
     /// when used with Scalar.
-    type Vi32: SimdInt32<Engine = Self, Scalar = i32> + SimdBaseIo;
+    type Vi32: SimdInt32<Engine = Self, Scalar = i32> + SimdBaseIo + SimdConsts<Scalar = i32>;
 
     /// Vector of i64s.  Corresponds to __m128i when used
     /// with the Sse impl, __m256i when used with Avx2, or a single i64
     /// when used with Scalar.
-    type Vi64: SimdInt64<Engine = Self, Scalar = i64> + SimdBaseIo;
+    type Vi64: SimdInt64<Engine = Self, Scalar = i64> + SimdBaseIo + SimdConsts<Scalar = i64>;
 
     /// Vector of f32s.  Corresponds to __m128 when used
     /// with the Sse impl, __m256 when used with Avx2, or a single f32
     /// when used with Scalar.
-    type Vf32: SimdFloat32<Engine = Self, Scalar = f32> + SimdBaseIo;
+    type Vf32: SimdFloat32<Engine = Self, Scalar = f32> + SimdBaseIo + SimdConsts<Scalar = f32>;
 
     /// Vector of f64s.  Corresponds to __m128d when used
     /// with the Sse impl, __m256d when used with Avx2, or a single f64
     /// when used with Scalar.
-    type Vf64: SimdFloat64<Engine = Self, Scalar = f64> + SimdBaseIo;
+    type Vf64: SimdFloat64<Engine = Self, Scalar = f64> + SimdBaseIo + SimdConsts<Scalar = f64>;
 
     // The width of the vector lane.  Necessary for creating
     // lane width agnostic code.
